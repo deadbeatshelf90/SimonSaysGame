@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<head>
+    <title>Plan And Design</title>
+    <link rel="stylesheet" href="css.css">
+</head>
+<body class="background">
+    <div class="navbar">
+        <ul class="navbar">
+            <li class="navList"><a class="navElement"href="index.html">Meeting the Brief</a></li>
+            <li class="navList"><a class="navElement"href="investigation.html">Investigation</a></li>
+            <li class="navList"><a class="activeNavElement" href="PlanAndDesign.html">Plan and Design</a></li>
+            <li class="navList"><a class="navElement" href="Create.html">Create</a></li>
+            <li class="navList"><a class="navElement" href="Evaluation.html">Evaluation</a></li>
+            <li class="navList"><a class="navElement" href="References.html">References and WordCount</a></li>
+            <li class="navList"><a class="navElement" href="GraphsAndFunctionallity.html">Graphs And Functionallity</a></li>
+        </ul>
+    </div>
+    <div class="trueBody">
+        <p class="Title">Plan and Design </p>
+        <div class="text">
+            <p>
+                This project will operate much like the well- known game Simon Says. The system will pick random directions from an array, the number of directions increasing with each round. Using a pulse sensor, the system would monitor the users hear rate through the duration of each round.
+                The heartrate data and the results of the round will be stored in firebase and later used by the analysis component and the what if questions.
+            </p> 
+            <p>
+                I decided to incorporate some features of Universal Design such as Equitable Use, Simple and Intuitive Use and Low Physical Effort. 
+            </p>
+            <p>
+                I will use Agile to develop this project as it takes form as stages of development such as sprint planning (e.g. stages for microbit, python, database etc), acceptance criteria (what needs to be done in each stage), 
+                kanban (work will be planned in order of priority) and acceptance testing (verify that each stage meets the requirements as set out by the brief) 
+            </p>
+            <p>
+                To start, the user presses the A button on the "Game Micro Bit" to initiate the game. The system compares the user's sequence with its own and notifies the user if they've won the round. Upon winning, the round counter increments until reaching round 6,
+                at which point the system informs the user, "That's enough for today." Results, along with heart rate data, are sent to Firebase at the end of each round. This data aims to provide users with insights into their well-being going forward. 
+            </p>
+            <p>
+                The model's inputs include a heart rate monitor as the analogue input and 4 buttons for user sequences as digital inputs. Outputs consist of the Micro:Bit LED screen displaying the sequence to replicate as the digital output, 
+                and the in-built buzzer providing feedback for each sequence element, with each direction having its respective tone as the analogue output. 
+            </p>  
+            <p>
+                The technologies that I used are as followed:
+                <ul>
+                    <li>I will use a Micro-Bit for my embedded system.</li>
+                    <li>I will use the Thonny Ide to write my python code.</li>
+                    <li>I will use the website MadeCode to program the Micro-Bit.</li>
+                    <li>I will use the Ide Visual Studio Code to wrie my html and JavaScript code.</li>
+                    <li>I will use the Chart.js to plot my graphs.</li>
+                    <li>I will use Obs Studio to record my website functionality.</li>
+                    <li>I will use OpenShot Video Editor to create the video Meeting the Brief.</li>
+                </ul>
+            </p>
+            <p>  
+                I plan to model stress levels using the heartrate sensor to predict the user’s success chances in the game, all to help them reduce their stress levels while playing. 
+            </p>
+            <p>
+                My two ‘What-if’ questions that I will aim to answer will be “If the number of rounds were to be reduced to x, what would be the chance of a success?” and “What if the user was stressed, would this support or contradict the conclusion given?” 
+                These questions are aimed to make the user’s goals using the device realistic as to help them reduce stress. 
+            </p>
+            <p>
+                The main code of my project will be created in Python and JavaScript, with the presentation of my brief being created in HTML and designed with CSS. The data will be sent to Google Firebase to cleanly store the data for further use. 
+            </p>
+            <p class="heading">Below is my Architecture Diagram:</p>  
+            <div class="image">
+                <img src="archetecture diagram.png" alt="Architecture Diagram">
+            </div>   
+            <p class="heading">Below is my Architecture Diagram</p>
+            <div class="image">
+                <img src="flowchart.drawio.png" alt="flowchart">
+            </div>  
+        </div>
+    </div>
+</body>

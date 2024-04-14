@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<head>
+    <title>Create</title>
+    <link rel="stylesheet" href="css.css">
+</head>
+<body class="background">
+    <div class="navbar">
+        <ul class="navbar">
+            <li class="navList"><a class="navElement"href="index.html">Meeting the Brief</a></li>
+            <li class="navList"><a class="navElement"href="investigation.html">Investigation</a></li>
+            <li class="navList"><a class="navElement" href="PlanAndDesign.html">Plan and Design</a></li>
+            <li class="navList"><a class="activeNavElement" href="Create.html">Create</a></li>
+            <li class="navList"><a class="navElement" href="Evaluation.html">Evaluation</a></li>
+            <li class="navList"><a class="navElement" href="References.html">References and WordCount</a></li>
+            <li class="navList"><a class="navElement" href="GraphsAndFunctionallity.html">Graphs And Functionallity</a></li>
+        </ul>
+    </div>
+    <div class="trueBody">
+        <p class="Title">Create</p> 
+        <div class="text">
+            <p class="heading">Weeks 1 and 2: </p>
+                <ul>
+                    <li>Brainstormed ideas for projects suited to the brief. </li>
+                    <li>Developed my 2 what if questions. </li>
+                </ul>
+            <p class="heading">Weeks 3 and 4:</p>
+                <ul>
+                    <li>Began programming the game on the Micro-Bit. </li>
+                    <li>Built the circuit using buttons and coloured LED’s. </li>
+                    <li>Made a Microsoft Forms survey to responses to the concept and gather possible extra ideas from the end users. </li>
+                </ul>
+            <p class="heading">Weeks 5 and 6: </p>
+                <ul>
+                    <li>Tested the game code and found the while loops were not working. </li>
+                    <li>Remade the game using functions.</li>
+                    <li>Wrote code to calculate the mean of the heartrate values. </li>
+                    <li>Found trouble with the LED brightness. LED’s were not grounding while also being digitally read. </li>
+                    <li>Rebuild the circuit and display code using the Micro-Bit LED display instead of the separate LED’s. </li>
+                </ul>
+            <p class="heading">Weeks 7 and 8:</p>
+                <ul>
+                    <li>Set up a Realtime Database on Google Firebase. </li>
+                    <li>Organized and stored data on Firebase. </li>
+                    <li>Coded the HTML page to display data to the user along with the what if questions. </li>
+                    <li>Included a css stylesheet to give detail to the multiple HTML files. </li>
+                </ul>
+            <p class="heading">Weeks 9 and 10: </p>
+                <ul>
+                    <li>Using Chart.js, I made a graph of the data stored on Firebase. </li>
+                    <li>Made an HTML file for each of the sections of the report.</li>
+                    <li>Improved the css stylesheet and added a nav bar to the HTML files. </li>
+                </ul>
+            <p class="heading">Weeks 11 and 12: </p>
+                <ul>
+                    <li>Finalizing write up and started developing the video using OpenShot video editor. </li>
+                    <li>Shot the video of the embedded system and edited out all unnecessary background noise.</li>
+                    <li>Screen recorded the main html page to show functionality of the model and how the project meets the requirements of the brief.</li>
+                    <li>Recorded the narration of the video and finished editing the video adding censor bars to personal links. </li>
+                </ul>
+            <p class="heading">Issues with the plan to use LED’s: </p>
+            <p>
+                Originally, I intended to use 4 colour coded LEDs to signify the different possible elements of the sequence. However, I found that the LEDs would not shine brightly if their ground pin was being used as a digital read pin by the Micro-Bit. To combat this issue, 
+                I removed the LED’s and used the Micro-Bit's display screen as my digital output and instead of having colours show the elements of the sequence, I used directions (up, down, left and right). This meant that I needed to rewrite some of the game code too as it no 
+                longer needed to digitally write to the bread board to turn on the LEDs and the buttons were then rearranged to show the 4 directions. 
+            </p>
+            <p class="heading">Unit Testing: </p>
+            <p>
+                Throughout the development of my project I used unit testing to ensure that code worked as expected. Below are some examples.<br>
+                For each of these examples I use inputs similar to the values of the variables that the actual code will use. I then verified that the outputs are as expected (what are returned by the function).
+            </p>
+            <div class="image">
+                <img src="javaUnitTestCode.png" alt="java code">
+                <img src="javaUnitTestLog.png" alt="java log">
+            </div>
+            <p>
+                These functions are for calculating the percentages for my first what if question and creating the array of numbers for the label of the x-axis on the graph of the analysis componant respectively. <br>
+                For the first function I am taking in a string that contains a number greater than 0 along with the arrays of integers that depict the total wins and number of rounds for each of the 6 rounds, where the index 0 gives the values for round 1 etc. <br>
+                For the second function I am taking in the length of an array that represents the number of data points on the graph and creating array of strings that hold the numbers from 0 to 1 less than the length of the original array. I then compared this 2 array with the expected output using 
+                the for loop shown to ensure they are the same array.
+            </p>
+            <div class="image">
+                <img src="python unit test.png" alt="python code">
+            </div>
+            <p>
+                This function is representitive of the function used to take in the serial data from the "Game Micro-Bit" and create a string that can be manipulated to get the required data to be stored on the database. <br>
+                This function outputs the data in their varified states such as strings or integers. The code for iterating the variable next_session when the round is a loss is also shown in this function.
+            </p>
+            <div class="image">
+                <img src="makeCodeUnitTest.png" alt="microbit code">
+            </div>
+            <p>
+                The above function is used for comparing the systems sequence with the player's answer. It does this by comparing elements at index 0 and moving down the array. If the comparason ever comes back negetive the loop breaks and a negative result is returned.
+            </p>
+            <p class="heading">My important code: </p>
+            <p>
+                One important piece of code I created was the code that automatically counts the children of the branch sessions by first checking is the reference to the database empty by using the None type. If the reference is empty then the code sets the child of the main branch to 
+                ‘sessions’: ‘’ and the variable next_session to 1, either way the code then makes a new database reference to be the child of ‘sessions’. Once the new reference has been made the code takes all the data from the branch and makes a variable called last_element_key that turns 
+                the branch data into a list of keys and finds the last key in the list. The variable next_session is then set to the last key and from there is set to the number at the end of the list, e.g. 2 if the key is session 2. The variable next_session is then added to by 1 to make the 
+                number of the next session. If there is no data in the database then next_session is set to 1. When the code pushes the validated data to the database it checks to see if the Result of the round was a loose, if so then next_session is added to by 1 again as the current session 
+                has ended. 
+            </p>
+        </div> 
+    </div>
+</body>

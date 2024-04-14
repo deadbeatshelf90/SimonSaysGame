@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <Title>Graphs and functionality</Title>
+    </head>
+    <body>
+        <div class="navbar">
+            <ul class="navbar">
+                <li class="navList"><a class="activeNavElement" href="html.html">Meeting the Brief</a></li>
+                <li class="navList"><a class="navElement" href="investigation.html">Investigation</a></li>
+                <li class="navList"><a class="navElement" href="PlanAndDesign.html">Plan and Design</a></li>
+                <li class="navList"><a class="navElement" href="Create.html">Create</a></li>
+                <li class="navList"><a class="navElement" href="Evaluation.html">Evaluation</a></li>
+                <li class="navList"><a class="navElement" href="References.html">References</a></li>
+                <li class="navList"><a class="activeNavElement" href="GraphsAndFunctionallity.html">Graphs And Functionallity</a></li>
+            </ul>
+        </div>
+    
+        <div class="trueBody">
+            <p class="Title">
+                Basic Requirments
+            </p>
+    
+            <div class="BasicRequirementText">
+                Below is a graph of your heartrate, in bpm, accross the end of your last session
+                <br>Along with the graph of you average heartrate, also in bpm, per round of your last session
+            </div>
+    
+            <div id="all_heart_rates">
+                <canvas id="allHeartRatesChart"></canvas>
+            </div>
+            <div id="rounds">
+                <canvas id="roundsChart"></canvas>
+            </div>
+    
+            <div class="BasicRequirementText" id="basicRequirement">
+                
+            </div>
+            <p class="Title">
+              Advanced Requirements
+          </p>
+            <div class="Whatif">
+            <div id="what_if_1">
+                <h2>Question 1</h2>
+                What if the number of rounds were to be reduced to x, what would be the chance of a success?
+                <form action="" name="choose_round" id="choice_form">
+                  <fieldset>
+                    <legend>Please select a value for x:</legend>
+                    <div>
+                      <input type="radio" id="roundChoice1" name="rounds" value="1" />
+                      <label for="roundChoice1">1</label>
+                
+                      <input type="radio" id="roundChoice2" name="rounds" value="2" />
+                      <label for="roundChoice2">2</label>
+                
+                      <input type="radio" id="rounsChoice3" name="rounds" value="3" />
+                      <label for="roundChoice3">3</label>
+            
+                      <input type="radio" id="rounsChoice4" name="rounds" value="4" />
+                      <label for="roundChoice4">4</label>
+            
+                      <input type="radio" id="rounsChoice5" name="rounds" value="5" />
+                      <label for="roundChoice">5</label>
+            
+                      <input type="radio" id="rounsChoice6" name="rounds" value="6" />
+                      <label for="roundChoice6">6</label>
+                    </div>
+                    <div>
+                      <button type="submit">Submit</button>
+                    </div>
+                  </fieldset>
+                </form>
+              </div>
+            
+              <div id="what_if_1_result">
+                
+              </div>
+            
+              <div id="what_if_2">
+                <h2>Question 2</h2>
+                What if the user was stressed, would this support or contradict the conclusion above?
+                <form action="" name="isStressed" id="stressed_form">
+                  <fieldset>
+                    <legend>Did you feel stressed during the last session?:</legend>
+                    <div>
+                      <div>
+                        <input type="checkbox" id="isStressedCheckbox" name="stressed" />
+                        <label for="coding">Yes / No?</label>
+                      </div>
+                    </div>
+                    <legend>Do yo think a break would help?:</legend>
+                    <div>
+                      <div>
+                        <input type="checkbox" id="takeBreakCheckbox" name="takeBreak" />
+                        <label for="coding">Yes / No?</label>
+                      </div>
+                    </div>
+                    <div>
+                      <button id="what_if_2_button" type="submit">Submit</button>
+                    </div>
+                  </fieldset>
+                </form>
+              </div>
+            
+              <div id="what_if_2_result">
+                
+                <br></div>  
+              </div>
+            
+            
+            
+                <script type="module">
+            
+            
+                  // Import the functions you need from the SDKs you need
+                  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
+                  import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-analytics.js";
+                  // TODO: Add SDKs for Firebase products that you want to use
+                  // https://firebase.google.com/docs/web/setup#available-libraries
+            
+                  // Your web app's Firebase configuration
+                  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+                  const firebaseConfig = {
+                    apiKey: "AIzaSyCXiy8z_-nszgXqgIZOsDL44qQ-cjcRUmM",
+                    authDomain: "leaving-cert-com-sci-database.firebaseapp.com",
+                    databaseURL: "https://leaving-cert-com-sci-database-default-rtdb.europe-west1.firebasedatabase.app",
+                    projectId: "leaving-cert-com-sci-database",
+                    storageBucket: "leaving-cert-com-sci-database.appspot.com",
+                    messagingSenderId: "902213254716",
+                    appId: "1:902213254716:web:0c100b9b986cf5c2038d39",
+                    measurementId: "G-XP9S8QW4QZ"
+                  };
+                    
+                  // Initialize Firebase
+                  const app = initializeApp(firebaseConfig);
+                  import {getDatabase, ref, onChildAdded} from "https://www.gstatic.com/firebasejs/10.9.0/firebase-database.js";
+                  
+                  const ctxRounds = document.getElementById('roundsChart');
+                  const ctxHeartRates = document.getElementById('allHeartRatesChart');
+                  const db = getDatabase();//get a link to the database     
+                  const commentsRef = ref(db, "sessions/");//set the reference to the node you want to use
+                  
+                  let heartRateMeasurements = [];
+                  let heartRateMeasurementsLength = 0;
+                  let heartRateLabel = [];
+    
+                  let round_counter = [0,0,0,0,0,0,];
+                  let pass_counter = [0,0,0,0,0,0];
+            
+                  function calulateXaxisLength(a){
+                    let response = [...Array(a).keys()]
+                    let response2 = response.join().split(','); //convert numbers to strings
+                    // console.log("from calculate function: " + response2); //["1", "2", "3", "4", "5"] 
+                    return response2;
+                  }
+            
+                  onChildAdded(commentsRef, (data) => {
+            
+                    var heartRateAverages = [];
+            
+                    var dataset_index = parseInt(data.key.replace("session_","")) -1;
+                    // console.log("dataset_index: " + dataset_index);
+            
+                    Object.entries(data.val()).forEach(([key, value]) => {
+                      var avg_heartRate = value.Avg_heartrate;
+                    //   console.log(avg_heartRate);
+                      heartRateAverages.push(avg_heartRate);
+                    //   console.log("pushed avg heartrate to chart");
+                    //   console.log("HeartRates Measurements: " + value.Heartrates);
+                    //   console.log("Qty of heart rate measures: " + value.Heartrates.length);
+                        heartRateMeasurements.push(...value.Heartrates);
+                    //   console.log("heartRateMeasurements length: " + heartRateMeasurements.length);
+                     //grab the round count and the pass rate
+                        var round_pointer = parseInt(key.replace("Round_","")) -1;
+                        round_counter[round_pointer] = round_counter[round_pointer] + 1;
+                        if (value.Result == "win"){
+                            pass_counter[round_pointer] = pass_counter[round_pointer] + 1;
+                        }
+                    });
+    
+                    // console.log("round_counter: " + round_counter);
+                    // console.log("pass_counter " + pass_counter);
+            
+                    chartRounds.data.datasets[0].label = "Average Heartrate For Each Round In Your Last Session";
+                    chartRounds.data.datasets[0].data = heartRateAverages;
+                    chartRounds.update('none');//don't do any animation    
+                    
+                    heartRateLabel = calulateXaxisLength(heartRateMeasurements.slice(-101).length)
+                    // console.log(heartRateLabel);
+                    chartHeartRates.data.labels = heartRateLabel;
+                    chartHeartRates.data.datasets[0].label = "Heart Rate Values For The End Of Your Last Session"
+                    chartHeartRates.update('none');//don't do any animation    
+                  });
+                    
+                  // Create a chart object for our chart. Inside data - line 82: we need to set labels to an empty list
+                  // also in  datasets - line 85 we set data to an empty list. This is where our data goes.
+                  var chartRounds = new Chart(ctxRounds, {
+                  type: 'line',
+                  data: {
+                    labels: ["Round 1","Round 2","Round 3","Round 4","Round 5","Round 6"], 
+                    datasets: [{
+                      label: '',
+                      data: [],
+                      borderWidth: 1
+                    }]
+                  },
+                  options: {
+                    scales: {
+                      y: {
+                        beginAtZero: false
+                      }
+                    }
+                  }
+                });
+            
+                var chartHeartRates = new Chart(ctxHeartRates, {
+                  type: 'line',
+                  data: {
+                    labels: [],    //working       
+                    datasets: [{
+                      label: '',
+                      data: heartRateMeasurements,
+                      borderWidth: 1
+                    }]
+                  },
+                  options: {
+                    scales: {
+                      y: {
+                        beginAtZero: false
+                      }
+                    }
+                  }
+                });
+                
+                let choice_from = document.getElementById("choice_form");
+    
+                choice_from.addEventListener("submit", (e) => {
+                    e.preventDefault();
+                    var radios = choice_form.elements["rounds"];
+                    // radios.value is the value for the box selected
+                    whatif1(radios.value,pass_counter,round_counter);
+                    //params(string,array of integers,array of integers)
+                    //params(string,integer,integer)
+                });
+    
+                function whatif1(a,b,c){
+                  a = parseInt(a);
+                  var pass_counter_value = b[a-1];
+                  var round_counter_value = c[a-1];
+                  console.log(round_counter_value);
+                  if (round_counter_value > 1){
+                    var result = pass_counter_value / round_counter_value;
+                    result = result * 100;
+                    } else {
+                        result = 0;
+                    }
+                    
+                    document.getElementById("what_if_1_result").innerHTML = result + " %";
+                }
+                
+                let isStressed_form = document.getElementById("stressed_form");
+    
+                isStressed_form.addEventListener("submit", (e) => {
+                e.preventDefault();
+                let isStressedButton = document.getElementById("isStressedCheckbox")
+                var isStressedButtonChecked = isStressedButton.checked;
+                let breakButton = document.getElementById("takeBreakCheckbox")
+                var isBreakButtonChecked = breakButton.checked;
+                var direction = graphDirection(heartRateMeasurements);
+                let answer = document.getElementById("what_if_2_result");
+    
+              function whatif2(a,b,c){
+                if((a == true)&&(b != "down")){
+                    if(c == true){
+                        answer.innerHTML = "The data agrees that you are stressed and you should take a break."
+                    }else{
+                        answer.innerHTML = "The data aggrees that you are stressed but you should take a break."
+                    }
+                }
+                if((a == true)&&(b == "down")){
+                    answer.innerHTML  = "The data shows you are not stressed but please feel free to take a break."
+                }
+                if((a == false)&&(b == "down")){
+                    answer.innerHTML = "The data agrees that you are not stressed, you are fine to keep playing."
+                }
+                if((a == false)&&(b != "down")){
+                    answer.innerHTML = "The data shows you are stessed, please consider taking a break."
+                }
+              }
+              whatif2(isStressedButtonChecked,direction,isBreakButtonChecked);
+              //params(boolean,string,boolean)
+    
+                });
+                
+                function graphDirection(array){
+                    const lastElement = array[array.length - 1];
+                    let lowerCount = 0;
+                    let higherCount = 0;
+                    let directionString = ""
+    
+                    // Iterate over the array excluding the last element
+                    for (let i = 0; i < array.length - 1; i++) {
+                        if (array[i] < lastElement) {
+                            lowerCount++;
+                        } else {
+                            higherCount++;
+                        }
+                    }
+                    if(lowerCount>higherCount){
+                        directionString = "up"
+                    }else{
+                        directionString = "down"
+                    }
+                    // console.log("Lower elements count:", lowerCount);
+                    // console.log("Higher elements count:", higherCount);
+                    return directionString
+                }
+                let graphRead = document.getElementById("basicRequirement");
+                if(graphDirection(heartRateMeasurements) == "down"){
+                    graphRead.innerText = "You can see from your heartrate graph that your heartrate has been steady while playing. Feel free to keep playing if you would like to."
+                }else{
+                    graphRead.innerText = "You can see from your heartrate graph that your heartrate is high and you are stressed. Maybe you should take a break for a while."
+                }
+                graphRead.innerText = graphRead.innerText + "\nThis conclusion can be backed up by looking at your average heartrates for each round."
+                    
+                </script>
+        </div>
+    </body>
+</html>

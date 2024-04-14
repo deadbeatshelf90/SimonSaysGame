@@ -1,0 +1,79 @@
+.background{
+    background-image: url("download.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center top;
+}
+.trueBody{
+    background-color: white;
+    margin-top: 50px;
+    margin-right: 50px;
+    margin-bottom: 50px;
+    margin-left: 50px;
+}
+.navbar{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: darkblue;
+    width: 100%;
+    position: fixed;
+    top: 0 ;
+}
+.navList{
+    float: left;
+}
+.navElement{
+    display: block;
+    color: white;
+    text-align: left;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: large;
+}
+.navElement:hover{
+    background-color: blue;
+}
+.activeNavElement{
+    background-color: blue;  
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: large;
+}
+.Title{
+    font-weight: bold;
+    text-decoration: underline;
+    font-size: 80px;
+    text-align: center;
+    /* color: ; */
+}
+.BasicRequirementText{
+    font-size: large;
+    text-align: start;
+    margin-left: 20px;
+    font-weight: bold;
+}
+.Whatif{
+    text-align: center;
+}
+.text{
+    font-size: large;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+}
+.image{
+    text-align: center;
+    
+}
+.imgae img{
+    display: inline-block;
+    max-width: 100%;
+    height: auto;
+}.heading{
+    text-decoration: underline;
+}
